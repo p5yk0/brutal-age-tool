@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/p5yk0/brutal-age-tool.svg?token=zynrKMVoTpVxatEGiqmc&branch=master)](https://travis-ci.com/p5yk0/brutal-age-tool)
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
