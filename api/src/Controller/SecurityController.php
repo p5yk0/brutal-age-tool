@@ -12,19 +12,13 @@ use App\Repository\UserRepository;
 
 class SecurityController extends Controller {
 
-   /**
-    * @Route("/login_test", methods="GET", name="app_login_test")
-    */
-   public function test() {
-      return $this->redirectToRoute('app_login', [ 'email' => 'pierrick@lespinas.se' ]);
-   }
-
 
    /**
-    * @Route("/login", name="app_login")
+    * @Route("/login", methods="POST", name="app_login")
     */
    public function login( AuthenticationUtils $authenticationUtils, UserRepository $userRepository ) {
 
+      throw new \Exception("Authenticator missed ?!");
       $error = $authenticationUtils->getLastAuthenticationError();
 
       if( !empty($error) ) {
@@ -57,7 +51,7 @@ class SecurityController extends Controller {
 
 
    /**
-    * @Route("/sign_in", name="app_sign_in")
+    * @Route("/register", name="app_register")
     */
    public function register() {
 

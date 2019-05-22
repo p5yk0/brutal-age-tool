@@ -1,23 +1,26 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Checkbox from '@material/react-checkbox';
+import FacebookLogin from 'react-facebook-login';
+import GoogleLogin from 'react-google-login';
+
 import Layout from "Components/LayoutExterne/";
 
 // import MaterialIcon from "@material/react-material-icon";
 import "./style.css";
 
-class Home extends React.Component {
+class Register extends React.Component {
 
    constructor(props) {
       super(props);
       this.state = {
          email    : '',
          password : '',
+         pwdCheck : '',
          remember : {
             checked: false,
             indeterminate: false
          },
-         loginError : ''
+         message : ''
       };
 
       this.handleInputChange = this.handleInputChange.bind(this);
@@ -63,22 +66,27 @@ class Home extends React.Component {
       });
    }
 
+   componentClicked(e) {
+      console.log('clicked');
+   }
+   responseFacebook(response) {
+      console.log('responseFacebook', response);
+   }
+   responseGoogle(response) {
+      console.log('responseGoogle', response);
+   }
+
    render() {
       return (
-         <Layout className="p-login">
+         <Layout className="p-register">
 
-            <div className="card-header">
-               <h3>Sign In</h3>
-               <div className="d-flex justify-content-end social_icon">
-                  <span><i className="fab fa-facebook-square"></i></span>
-                  <span><i className="fab fa-google-plus-square"></i></span>
-                  <span><i className="fab fa-twitter-square"></i></span>
-               </div>
+            <div className="card-header text-center">
+               <h3>Create your account</h3>
             </div>
             <div className="card-body">
-               {this.state.loginError &&
+               {this.state.message &&
                <p>
-                  {this.state.loginError}
+                  {this.state.message}
                </p>
                }
                <form onSubmit={this.handleSubmit}>
@@ -95,34 +103,43 @@ class Home extends React.Component {
                      </div>
                      <input type="password" name="password" className="form-control" placeholder="Password" value={this.state.password} onChange={this.handleInputChange} />
                   </div>
-                  <div className="row align-items-center remember">
-                     <Checkbox
-                        nativeControlId='my-checkbox'
-                        checked={this.state.remember.checked}
-                        indeterminate={this.state.remember.indeterminate}
-                        onChange={
-                           ( e ) => this.setState( {
-                              remember: {
-                                 checked : e.target.checked,
-                                 indeterminate : e.target.indeterminate
-                              },
-                           })
-                        }
-                     />
-                     <label htmlFor='my-checkbox'>Remember me</label>
+                  <div className="input-group form-group">
+                     <div className="input-group-prepend">
+                        <span className="input-group-text"><i className="fas fa-key"></i></span>
+                     </div>
+                     <input type="password" name="pwdCheck" className="form-control" placeholder="Confirm password" value={this.state.passwordconf} onChange={this.handleInputChange} />
                   </div>
                   <div className="form-group">
-                     <input type="submit" value="Login" className="btn float-right login_btn"/>
+                     <input type="submit" value="Sign up" className="btn float-right login_btn"/>
                   </div>
                </form>
             </div>
-            <div className="card-footer links">
-               <p className="d-flex justify-content-center">
-                  Don't have an account ? <Link to="/register">Sign Up</Link>
+            <hr/>
+            <div className="text-center" style={{color:'#FFF'}}>
+               <p className="text-uppercase font-weight-bold">OR</p>
+               <p>
+                  <FacebookLogin
+                     appId="601485647030673"
+                     autoLoad={false}
+                     size="small"
+                     fields="name,email,picture"
+                     onClick={this.componentClicked}
+                     callback={this.responseFacebook}
+                     icon="fab fa-facebook"
+                  />
                </p>
-               <p className="d-flex justify-content-center">
-                  <Link to="/forgot_credentials">Forgot your password ?</Link>
+               <p>
+                  <GoogleLogin
+                     clientId="447712311281-ehh99fc9fdqkv60524baen509av02ns3.apps.googleusercontent.com"
+                     onSuccess={this.responseGoogle}
+                     onFailure={this.responseGoogle}
+                     cookiePolicy={'single_host_origin'}
+                     className="text-uppercase"
+                  />
                </p>
+            </div>
+            <div className="card-footer links text-center">
+               <Link to="/login">Sign in</Link>
             </div>
 
          </Layout>
@@ -131,4 +148,4 @@ class Home extends React.Component {
 
 }
 
-export default Home;
+export default Register;

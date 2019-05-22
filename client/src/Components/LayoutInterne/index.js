@@ -1,8 +1,9 @@
 import React from "react";
 
-import './Layout.css';
+import './styles.css';
 
-import HeaderNavbar from "../Components/Navbar";
+
+import HeaderNavbar from "Components/Navbar";
 
 
 function Layout(props) {

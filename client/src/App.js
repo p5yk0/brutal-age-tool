@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import "./App.css";
 
@@ -11,17 +11,22 @@ import "@fortawesome/fontawesome-free/css/solid.css";
 import "@fortawesome/fontawesome-free/css/fontawesome.css";
 
 
-import Home from "./Routes/Home/";
-import Login from "./Routes/_Login/";
-import Partners from "./Routes/Partners";
+import Login from "Routes/_Login/";
+import Register from "Routes/_Register/";
+import Home from "Routes/Home/";
+import Partners from "Routes/Partners";
 
 
 function App() {
    return (
       <Router>
-         <Route exact path="/" component={Login} />
-         <Route exact path="/home" component={Home} />
-         <Route path="/partners" component={Partners} />
+         <Switch>
+            <Route exact path="/" component={Login} />
+            <Route exact path="/register" component={Register} />
+            <Route exact path="/home" component={Home} />
+            <Route path="/partners" component={Partners} />
+            <Route component={Login} />
+         </Switch>
       </Router>
    );
 }

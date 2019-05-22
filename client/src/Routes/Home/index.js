@@ -3,7 +3,7 @@ import React from "react";
 
 import './style.css';
 
-import Layout from "../../Components/Layout";
+import Layout from "Components/LayoutInterne/";
 
 
 function Home() {

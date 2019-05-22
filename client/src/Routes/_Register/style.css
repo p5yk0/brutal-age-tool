@@ -1,0 +1,18 @@
+.p-register hr {
+    width: 50%;
+    margin: 1em auto;
+    background-color: #FFC312;
+}
+
+.p-register .card-header {
+    background-color: rgba(0,0,0,.3);
+}
+.p-register .card-header h3 {
+    margin-bottom: 0;
+}
+.p-register .card-body {
+
+}
+.p-register .card-footer {
+    border: none;
+}

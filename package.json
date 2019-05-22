@@ -50,6 +50,8 @@
     "react-bootstrap": "^1.0.0-beta.8",
     "react-dev-utils": "^9.0.1",
     "react-dom": "^16.8.6",
+    "react-facebook-login": "^4.1.1",
+    "react-google-login": "^5.0.4",
     "react-router-dom": "^5.0.0",
     "react-styleguidist": "^9.1.0",
     "resolve": "1.10.0",

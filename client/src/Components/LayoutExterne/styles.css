@@ -1,0 +1,33 @@
+html, body {
+    height: 100%;
+}
+
+.layout-outer {
+    background-image: url('http://getwallpapers.com/wallpaper/full/c/e/4/574098.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100%;
+}
+
+.layout-outer .container {
+    height: 100%;
+    align-content: center;
+}
+
+.layout-outer .card {
+    margin-top: auto;
+    margin-bottom: auto;
+    width: 400px;
+    background-color: rgba(0, 0, 0, 0.5) !important;
+}
+
+.layout-outer .card-header h3 {
+    color: white;
+}
+
+.layout-outer .input-group-prepend span {
+    width: 42px;
+    background-color: #FFC312;
+    color: black;
+    border: 0 !important;
+}
