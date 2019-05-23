@@ -3,8 +3,14 @@ import { Link } from "react-router-dom";
 import Checkbox from '@material/react-checkbox';
 import Layout from "Components/LayoutExterne/";
 
+import { CSSTransitionGroup } from 'react-transition-group';
+
 // import MaterialIcon from "@material/react-material-icon";
 import "./style.css";
+
+
+import FlashMsg from 'Components/FlashMsg/';
+
 
 class Home extends React.Component {
 
@@ -17,11 +23,15 @@ class Home extends React.Component {
             checked: false,
             indeterminate: false
          },
-         loginError : ''
+         message : ''
       };
+
+      this.test='jghjh';
 
       this.handleInputChange = this.handleInputChange.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
+      this.addMsg = this.addMsg.bind(this);
+      this.removeMsg = this.removeMsg.bind(this);
    }
 
    handleInputChange(event) {
@@ -33,8 +43,17 @@ class Home extends React.Component {
       });
    }
 
+   addMsg(txt) {
+      this.setState({message: txt});
+   }
+   removeMsg() {
+      this.setState({message: ''});
+   }
+
    handleSubmit(e) {
       e.preventDefault();
+      let self = this;
+      // self.setState({ message : "" });
       fetch(
          '/api/login',
          {
@@ -53,12 +72,16 @@ class Home extends React.Component {
          if( response.ok )
             return response.json();
          else
-            this.setState({ loginError : "Mauvaise réponse du réseau." });
+            self.addMsg("Mauvaise réponse du réseau.");
       })
-      .then(function(datas) {
-         console.log(JSON.stringify(datas));
+      .then(function(response) {
+         if( response.errcode )
+            self.addMsg(response.message);
+         else
+            console.log('logged !', response);
       })
       .catch(function(error) {
+         self.addMsg("Une erreur est survenue.");
          console.log("Il y a eu un problème avec l'opération fetch : " + error.message);
       });
    }
@@ -66,7 +89,6 @@ class Home extends React.Component {
    render() {
       return (
          <Layout className="p-login">
-
             <div className="card-header">
                <h3>Sign In</h3>
                <div className="d-flex justify-content-end social_icon">
@@ -76,11 +98,20 @@ class Home extends React.Component {
                </div>
             </div>
             <div className="card-body">
-               {this.state.loginError &&
-               <p>
-                  {this.state.loginError}
-               </p>
-               }
+
+               <CSSTransitionGroup
+                  transitionName="slideDown"
+                  transitionAppear={true}
+                  transitionAppearTimeout={500}
+                  transitionEnterTimeout={500}
+                  transitionLeaveTimeout={500}>
+                  {!!this.state.message &&
+                     <FlashMsg key={new Date()} type="error" autohide="2500" onHide={this.removeMsg}>
+                        {this.state.message}
+                     </FlashMsg>
+                  }
+               </CSSTransitionGroup>
+
                <form onSubmit={this.handleSubmit}>
                   <div className="input-group form-group">
                      <div className="input-group-prepend">
